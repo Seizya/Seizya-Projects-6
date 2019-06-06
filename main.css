@@ -1,0 +1,73 @@
+#screen_box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+#screen {
+    background-repeat: no-repeat;
+    /* filter: brightness(80%) contrast(80%); */
+    height: 100%;
+    width: 100%
+}
+
+#saying_box {
+    position: fixed;
+    bottom: 45vh;
+    left: 0;
+    width: 100vw;
+    height: 15vh;
+    background-image: url("./img/telo.png");
+    color: white;
+    font-size: 2rem;
+    line-height: 15vh;
+    text-align: center;
+    font-family: "elma";
+}
+
+#saying_box.fire {
+    display: inherit;
+}
+
+#saying_box:not(.fire) {
+    display: none;
+}
+
+#screen_point {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 5vh;
+    padding-right: 1rem;
+
+    font-size: 2rem;
+    color: black;
+    text-align: right;
+    line-height: 5vh;
+    font-family: "elma";
+}
+
+#screen_point::after {
+    content: " : Point"
+}
+
+#screen_hp {
+    position: fixed;
+    bottom: 5vh;
+    right: 0;
+    width: 100vw;
+    height: 5vh;
+    padding-right: 1rem;
+
+    font-size: 2rem;
+    color: black;
+    text-align: right;
+    line-height: 5vh;
+    font-family: "elma";
+}
+
+#screen_hp::after {
+    content: " : HP"
+}

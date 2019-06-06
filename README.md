@@ -1,1 +1,1 @@
-# Seizya-Projects-6
+# Seizya-Project-6
