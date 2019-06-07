@@ -85,7 +85,7 @@ const confi_Boss = {
         say: {
             zero: ["よく来たね。Seizya-Projects-6へようこそ。", "今回は復刻版だからね, 私が直々に遊んであげるね♪", "管理者権限は使わないから安心してね♪ それじゃあ， 行くよ!!"],
             one: ["どうやら君は想像以上の強者らしい。", "よし，ならば私が相手をしようか。", "楽しませてくださいね～, 強者さん♪"],
-            clear: ["流石は強者様。久しぶりに楽しめました。", "それでは, そろそろ私はお暇しましょうかね。", "これはClearした貴方へのご褒美です。", "Congratulations!! Game was Cleared!!", "Bye. Thanks for meeting me!"],
+            clear: ["流石は強者様。久しぶりに楽しめました。", "それでは, そろそろ私はお暇しましょうかね。", "これはClearした貴方へのご褒美です。", "Congratulations!! Game was Cleared!!", "Bye. Thanks for meeting me!","Reload Game?"],
             end: ["Game End...!", "笑わせてくれるね～, 弱き者よ。", "ReLoad Game"]
         }
     }
@@ -397,7 +397,7 @@ function main() {
             _E0.y += Math.sin(zyako.shot.angle) * zyako.shot.speed
         })
         zyako.shot.bullet = CanvasOver(zyako.shot.bullet)
-        if (point.point >= 2000) {
+        if (point.point >= 1000) {
             PlusRate(); DeleteZyako()
         }
     }
@@ -470,6 +470,11 @@ function OutofMain() {
             location.reload()
         } else {
             Saying(Boss.say.say.clear[Sayclick(13)[0]])
+            if(Sayclick(13)[0]==3){
+                if(!Derie("#saying_box")[0].classList.contains("red")) Derie("#saying_box")[0].classList.add("red");
+            }else{
+                if(Derie("#saying_box")[0].classList.contains("red")) Derie("#saying_box")[0].classList.remove("red");
+            }
         }
     }
 }
