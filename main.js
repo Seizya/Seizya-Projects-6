@@ -1,4 +1,4 @@
-const confi_canvas = {
+﻿const confi_canvas = {
     all: true,
     limitwidth: 16,
     limitheight: 9,
@@ -49,7 +49,7 @@ const confi_zyako = {
         color: "red",
         damage: 10,
         speed: 5,
-        angle: Math.PI / 2,
+        angle: 30,
         bullet: []
     }
 }
@@ -179,7 +179,7 @@ let Boss = {
         shot: {
             size: 0,
             image: undefined,
-            damage: 00,
+            damage: 0,
             bullet: []
         }
     },
@@ -293,7 +293,7 @@ function start() {
     Boss.enemy.image.src = confi_Boss.enemy.image
     Boss.enemy.interval = confi_Boss.enemy.interval
     Boss.enemy.range = confi_Boss.enemy.range
-    Boss.enemy.shot = confi_Boss.enemy.shot;;
+    Boss.enemy.shot = confi_Boss.enemy.shot;
 }
 
 function recall() {
@@ -381,20 +381,21 @@ function main() {
             zyako.zyako.push({
                 x: Random(0, canvas.width),
                 y: Funcrand("-x+" + canvas.height / 2, 0, canvas.height, 0, canvas.height),
-                shot_interval: Random(20, 40)
+                shot_interval: Random(40, 60)
             })
         }
         zyako.zyako.forEach(_E0 => {
             if (count % _E0.shot_interval == 0) {
                 zyako.shot.bullet.push({
                     x: _E0.x,
-                    y: _E0.y
+                    y: _E0.y,
+		    angle: Random((180 - zyako.shot.angle)/2 ,(180 - zyako.shot.angle)/2 + zyako.shot.angle)
                 })
             }
         })
         zyako.shot.bullet.forEach(_E0 => {
-            _E0.x += Math.cos(zyako.shot.angle) * zyako.shot.speed
-            _E0.y += Math.sin(zyako.shot.angle) * zyako.shot.speed
+            _E0.x += Math.cos(_E0.angle* ( Math.PI / 180 )) * zyako.shot.speed
+            _E0.y += Math.sin(_E0.angle* Math.PI/180) * zyako.shot.speed
         })
         zyako.shot.bullet = CanvasOver(zyako.shot.bullet)
         if (point.point >= 1000) {
