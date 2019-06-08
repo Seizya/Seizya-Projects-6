@@ -64,7 +64,7 @@ const confi_Boss = {
     enemy: {
         size: 16,
         image: "./img/zyako1.png",
-        range: 700,
+        range: 500,
         enemy: [],
         interval: 300,
         shot: {
