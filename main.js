@@ -85,10 +85,10 @@ const confi_Boss = {
     },
     say: {
         say: {
-            zero: ["よく来たね。Seizya-Projects-6へようこそ。", "今回は復刻版だからね, 私が直々に遊んであげるね♪", "管理者権限は使わないから安心してね♪ それじゃあ， 行くよ!!"],
+            zero: ["よく来たね。Seizya-Projects-6へようこそ。(Please Push Enter Key)", "今回は復刻版だからね, 私が直々に遊んであげるね♪", "管理者権限は使わないから安心してね♪ それじゃあ， 行くよ!!"],
             one: ["どうやら君は想像以上の強者らしい。", "よし，ならば私が相手をしようか。", "楽しませてくださいね～, 強者さん♪"],
             clear: ["流石は強者様。久しぶりに楽しめました。", "それでは, そろそろ私はお暇しましょうかね。", "これはClearした貴方へのご褒美です。", "Congratulations!! Game was Cleared!!", "Bye. Thanks for meeting me!","Reload Game?"],
-            end: ["Game End...!", "笑わせてくれるね～, 弱き者よ。", "ReLoad Game"]
+            end: ["Game End...!", "笑わせてくれるね～, 弱き者よ。", "ReLoad Game?"]
         }
     }
 }
