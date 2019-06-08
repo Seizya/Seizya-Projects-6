@@ -42,7 +42,7 @@ const confi_chara = {
 const confi_zyako = {
     size: 15,
     image: "./img/zyako1.png",
-    interval: 500,
+    interval: 350,
     zyako: [],
     shot: {
         size: 5,
