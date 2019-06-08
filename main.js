@@ -461,7 +461,7 @@ function main() {
 function OutofMain() {
     if (chara.hp <= 0) {
         [Boss.x, Boss.y] = [canvas.width / 2, canvas.height / 6]
-        ctx.drawImage(Boss.image, Boss.x - Boss.size / 2, Boss.y - Boss.size / 2, Boss.size, Boss.size)
+        ctx.drawImage(Boss.image, Boss.x - Boss.size, Boss.y - Boss.size, Boss.size*2, Boss.size*2)
         run = false;
         if (Sayclick(13)[0] >= Boss.say.say.end.length) {
             location.reload()
