@@ -704,7 +704,7 @@ function hit() {
         }
         chara.shot.bullet.forEach(_E0 => {
             if (Math.abs(_E0.x + chara.shot.size >= Boss.x - Boss.size && _E0.x - chara.shot.size <= Boss.x + Boss.size && _E0.y - chara.shot.size <= Boss.y + Boss.size && _E0.y + chara.shot.size >= Boss.y - Boss.size)) {
-                Boss.hp -= chara.shot.damage * .1;
+                Boss.hp -= chara.sub.shot.damage * Math.hyport(chara.x-Boss.x,chara.y-Boss.y)/canvas.height *.1;
                 point.point += point.succ * 2;
                 chara.hp += 1;
                 chara.shot.bullet = chara.shot.bullet.filter(_E1 => _E1 !== _E0)
@@ -713,7 +713,7 @@ function hit() {
 
         chara.sub.shot.bullet[0].forEach(_E0 => {
             if (Math.abs(_E0.x + chara.shot.size >= Boss.x - Boss.size && _E0.x - chara.shot.size <= Boss.x + Boss.size && _E0.y - chara.shot.size <= Boss.y + Boss.size && _E0.y + chara.shot.size >= Boss.y - Boss.size)) {
-                Boss.hp -= chara.sub.shot.damage * .1;
+                Boss.hp -= chara.sub.shot.damage * Math.hyport(chara.x-Boss.x,chara.y-Boss.y)/canvas.height *.1;
                 point.point += point.succ * 1.5;
                 chara.hp += 1
                 chara.sub.shot.bullet[0] = chara.sub.shot.bullet[0].filter(_E1 => _E1 !== _E0)
@@ -722,7 +722,7 @@ function hit() {
 
         chara.sub.shot.bullet[1].forEach(_E0 => {
             if (Math.abs(_E0.x + chara.shot.size >= Boss.x - Boss.size && _E0.x - chara.shot.size <= Boss.x + Boss.size && _E0.y - chara.shot.size <= Boss.y + Boss.size && _E0.y + chara.shot.size >= Boss.y + Boss.size)) {
-                Boss.hp -= chara.sub.shot.damage * .1;
+                Boss.hp -= chara.sub.shot.damage * Math.hyport(chara.x-Boss.x,chara.y-Boss.y)/canvas.height *.1;
                 point.point += point.succ * 1.5;
                 chara.hp += 1
                 chara.sub.shot.bullet[1] = chara.sub.shot.bullet[1].filter(_E1 => _E1 !== _E0)
