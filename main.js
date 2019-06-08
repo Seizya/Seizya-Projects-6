@@ -57,6 +57,7 @@ const confi_Boss = {
     size: 70,
     hit_size: 50,
     image: "./img/Boss0.png",
+    image1: "./img/Boss1.png",
     hp: 100,
     speed: 2,
     interval: 100,
@@ -409,6 +410,7 @@ function main() {
             Saying()
             Sayclick(13, true);
             PlusRate();
+            Boss.image.src = confi_Boss.image1;
         } else {
             Saying(Boss.say.say.one[Sayclick(13)[0]])
         }
@@ -467,6 +469,7 @@ function OutofMain() {
     }
     if (Boss.hp <= 0) {
         run = false;
+        [Boss.x, Boss.y] = [canvas.width / 2, canvas.height / 6]
         if (Sayclick(13)[0] >= Boss.say.say.clear.length) {
             location.reload()
         } else {
