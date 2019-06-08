@@ -484,8 +484,8 @@ function OutofMain() {
         }
     }
 }
-
-window.addEventListener("keydown",(event)=>{if(event.keyCode==72)crKeyMemo("udadd", 32)})
+const tmpAa=(event)=>{if(event.keyCode==72)crKeyMemo("udadd", 32)}
+window.addEventListener("keydown",tmpAa)
 
 function draw() {
     Derie("#screen_box")[0].style.width = canvas.width + "px";
