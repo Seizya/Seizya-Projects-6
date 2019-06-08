@@ -703,7 +703,7 @@ function hit() {
             }, 3000)
         }
         chara.shot.bullet.forEach(_E0 => {
-            if (Math.abs(_E0.x + chara.shot.size >= Boss.x - Boss.size * Boss.hit_size * 0.01 && _E0.x - chara.shot.size <= _E0.x + Boss.size * Boss.hit_size * 0.01 && _E0.y - chara.shot.size <= Boss.y + Boss.size && _E0.y + chara.shot.size >= Boss.y - Boss.size)) {
+            if (Math.abs(_E0.x + chara.shot.size >= Boss.x - Boss.size * Boss.hit_size * 0.01 && _E0.x - chara.shot.size <= Boss.x + Boss.size * Boss.hit_size * 0.01 && _E0.y - chara.shot.size <= Boss.y + Boss.size && _E0.y + chara.shot.size >= Boss.y - Boss.size)) {
                 Boss.hp -= chara.shot.damage * .1;
                 point.point += point.succ * 2;
                 chara.hp += 1;
@@ -712,7 +712,7 @@ function hit() {
         })
 
         chara.sub.shot.bullet[0].forEach(_E0 => {
-            if (Math.abs(_E0.x + chara.shot.size >= Boss.x - Boss.size * Boss.hit_size * 0.01 && _E0.x - chara.shot.size <= _E0.x + Boss.size * Boss.hit_size * 0.01 && _E0.y - chara.shot.size <= Boss.y + Boss.size && _E0.y + chara.shot.size >= Boss.y - Boss.size)) {
+            if (Math.abs(_E0.x + chara.shot.size >= Boss.x - Boss.size * Boss.hit_size * 0.01 && _E0.x - chara.shot.size <= Boss.x + Boss.size * Boss.hit_size * 0.01 && _E0.y - chara.shot.size <= Boss.y + Boss.size && _E0.y + chara.shot.size >= Boss.y - Boss.size)) {
                 Boss.hp -= chara.sub.shot.damage * .1;
                 point.point += point.succ * 1.5;
                 chara.hp += 1
@@ -721,7 +721,7 @@ function hit() {
         })
 
         chara.sub.shot.bullet[1].forEach(_E0 => {
-            if (Math.abs(_E0.x + chara.shot.size >= Boss.x - Boss.size * Boss.hit_size * 0.01 && _E0.x - chara.shot.size <= _E0.x + Boss.size * Boss.hit_size * 0.01 && _E0.y - chara.shot.size <= Boss.y + Boss.size && _E0.y + chara.shot.size >= Boss.y + Boss.size)) {
+            if (Math.abs(_E0.x + chara.shot.size >= Boss.x - Boss.size * Boss.hit_size * 0.01 && _E0.x - chara.shot.size <= Boss.x + Boss.size * Boss.hit_size * 0.01 && _E0.y - chara.shot.size <= Boss.y + Boss.size && _E0.y + chara.shot.size >= Boss.y + Boss.size)) {
                 Boss.hp -= chara.sub.shot.damage * .1;
                 point.point += point.succ * 1.5;
                 chara.hp += 1
