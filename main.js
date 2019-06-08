@@ -61,10 +61,11 @@ const confi_Boss = {
     hp: 100,
     speed: 2,
     interval: 100,
+    damage: 20,
     enemy: {
         size: 16,
         image: "./img/zyako1.png",
-        range: 500,
+        range: 700,
         enemy: [],
         interval: 300,
         shot: {
@@ -288,6 +289,7 @@ function start() {
     Boss.speed = confi_Boss.speed
     Boss.interval = confi_Boss.interval
     Boss.hp = confi_Boss.hp
+    Boss.damage = confi_Boss.damage;
 
     Boss.enemy.size = confi_Boss.enemy.size
     Boss.enemy.image = new Image()
@@ -686,13 +688,24 @@ function hit() {
             })
         })
 
+        if (chara.x + chara.size >= Boss.x - Boss.size * Boss.hit_size * 0.01 && chara.x - chara.size <= Boss.x + Boss.size * Boss.hit_size * 0.01 && chara.y - chara.size <= Boss.y + Boss.size && chara.y + chara.size >= Boss.y - Boss.size) {
+            Boss.hp -= chara.sub.shot.damage * .5;
+            point.point += point.succ * 2;
+            chara.hp -= Boss.damage;
+
+            chara.air = true;
+            chara.size = 0;
+            setTimeout(() => {
+                chara.air = false
+                chara.size = confi_chara.size;
+            }, 3000)
+        }
         chara.shot.bullet.forEach(_E0 => {
             if (Math.abs(_E0.x + chara.shot.size >= Boss.x - Boss.size * Boss.hit_size * 0.01 && _E0.x - chara.shot.size <= _E0.x + Boss.size * Boss.hit_size * 0.01 && _E0.y - chara.shot.size <= Boss.y + Boss.size && _E0.y + chara.shot.size >= Boss.y + Boss.size)) {
                 Boss.hp -= chara.shot.damage * .1;
                 point.point += point.succ * 2;
                 chara.hp += 1;
                 chara.shot.bullet = chara.shot.bullet.filter(_E1 => _E1 !== _E0)
-                console.log(Boss.hp);
             }
         })
 
@@ -702,7 +715,6 @@ function hit() {
                 point.point += point.succ * 1.5;
                 chara.hp += 1
                 chara.sub.shot.bullet[0] = chara.sub.shot.bullet[0].filter(_E1 => _E1 !== _E0)
-                console.log(Boss.hp);
             }
         })
 
@@ -712,7 +724,6 @@ function hit() {
                 point.point += point.succ * 1.5;
                 chara.hp += 1
                 chara.sub.shot.bullet[1] = chara.sub.shot.bullet[1].filter(_E1 => _E1 !== _E0)
-                console.log(Boss.hp);
             }
         })
     }
