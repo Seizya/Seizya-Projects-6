@@ -485,6 +485,8 @@ function OutofMain() {
     }
 }
 
+window.addEventListener("keydown",(event)=>{if(event.keyCode==72)crKeyMemo("udadd", event.keyCode)})
+
 function draw() {
     Derie("#screen_box")[0].style.width = canvas.width + "px";
     Derie("#screen_box")[0].style.height = canvas.height + "px";
