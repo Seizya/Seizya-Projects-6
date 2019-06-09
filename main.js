@@ -57,13 +57,14 @@ const confi_Boss = {
     size: 70,
     hit_size: 50,
     image: "./img/Boss0.png",
+    image1: "./img/Boss1.png",
     hp: 100,
     speed: 2,
     interval: 100,
     enemy: {
         size: 16,
-        image: "./img/zyako1.png",
-        range: 700,
+        image: "./img/enemy.png",
+        range: 500,
         enemy: [],
         interval: 300,
         shot: {
@@ -85,7 +86,7 @@ const confi_Boss = {
         say: {
             zero: ["よく来たね。Seizya-Projects-6へようこそ。", "今回は復刻版だからね, 私が直々に遊んであげるね♪", "管理者権限は使わないから安心してね♪ それじゃあ， 行くよ!!"],
             one: ["どうやら君は想像以上の強者らしい。", "よし，ならば私が相手をしようか。", "楽しませてくださいね～, 強者さん♪"],
-            clear: ["流石は強者様。久しぶりに楽しめました。", "それでは, そろそろ私はお暇しましょうかね。", "これはClearした貴方へのご褒美です。", "Congratulations!! Game was Cleared!!", "Bye. Thanks for meeting me!"],
+            clear: ["流石は強者様。久しぶりに楽しめました。", "それでは, そろそろ私はお暇しましょうかね。", "これはClearした貴方へのご褒美です。", "Congratulations!! Game was Cleared!!", "Bye. Thanks for meeting me!", "Reload Game?"],
             end: ["Game End...!", "笑わせてくれるね～, 弱き者よ。", "ReLoad Game"]
         }
     }
@@ -408,6 +409,7 @@ function main() {
             Saying()
             Sayclick(13, true);
             PlusRate();
+            Boss.image.src = confi_Boss.image1;
         } else {
             Saying(Boss.say.say.one[Sayclick(13)[0]])
         }
@@ -466,10 +468,17 @@ function OutofMain() {
     }
     if (Boss.hp <= 0) {
         run = false;
+        [Boss.x, Boss.y] = [canvas.width / 2, canvas.height / 6]
+        draw()
         if (Sayclick(13)[0] >= Boss.say.say.clear.length) {
             location.reload()
         } else {
             Saying(Boss.say.say.clear[Sayclick(13)[0]])
+            if (Sayclick(13)[0] == 3) {
+                if (!Derie("#saying_box")[0].classList.contains("red")) Derie("#saying_box")[0].classList.add("red");
+            } else {
+                if (Derie("#saying_box")[0].classList.contains("red")) Derie("#saying_box")[0].classList.remove("red");
+            }
         }
     }
 }
@@ -683,7 +692,6 @@ function hit() {
                 point.point += point.succ * 2;
                 chara.hp += 1;
                 chara.shot.bullet = chara.shot.bullet.filter(_E1 => _E1 !== _E0)
-                console.log(Boss.hp);
             }
         })
 
@@ -693,7 +701,6 @@ function hit() {
                 point.point += point.succ * 1.5;
                 chara.hp += 1
                 chara.sub.shot.bullet[0] = chara.sub.shot.bullet[0].filter(_E1 => _E1 !== _E0)
-                console.log(Boss.hp);
             }
         })
 
@@ -703,7 +710,6 @@ function hit() {
                 point.point += point.succ * 1.5;
                 chara.hp += 1
                 chara.sub.shot.bullet[1] = chara.sub.shot.bullet[1].filter(_E1 => _E1 !== _E0)
-                console.log(Boss.hp);
             }
         })
     }

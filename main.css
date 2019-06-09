@@ -34,6 +34,10 @@
     display: none;
 }
 
+#saying_box.red {
+    color:red;
+}
+
 #screen_point {
     position: fixed;
     bottom: 0;
