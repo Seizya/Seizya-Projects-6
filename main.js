@@ -1,4 +1,4 @@
-const confi_canvas = {
+﻿const confi_canvas = {
     all: true,
     limitwidth: 16,
     limitheight: 9,
@@ -42,14 +42,14 @@ const confi_chara = {
 const confi_zyako = {
     size: 15,
     image: "./img/zyako1.png",
-    interval: 500,
+    interval: 350,
     zyako: [],
     shot: {
         size: 5,
         color: "red",
         damage: 10,
         speed: 5,
-        angle: Math.PI / 2,
+        angle: 30,
         bullet: []
     }
 }
@@ -61,6 +61,7 @@ const confi_Boss = {
     hp: 100,
     speed: 2,
     interval: 100,
+    damage: 20,
     enemy: {
         size: 16,
         image: "./img/enemy.png",
@@ -84,10 +85,10 @@ const confi_Boss = {
     },
     say: {
         say: {
-            zero: ["よく来たね。Seizya-Projects-6へようこそ。", "今回は復刻版だからね, 私が直々に遊んであげるね♪", "管理者権限は使わないから安心してね♪ それじゃあ， 行くよ!!"],
+            zero: ["よく来たね。Seizya-Projects-6へようこそ。(Please Push Enter Key)", "今回は復刻版だからね, 私が直々に遊んであげるね♪", "管理者権限は使わないから安心してね♪ それじゃあ， 行くよ!!"],
             one: ["どうやら君は想像以上の強者らしい。", "よし，ならば私が相手をしようか。", "楽しませてくださいね～, 強者さん♪"],
             clear: ["流石は強者様。久しぶりに楽しめました。", "それでは, そろそろ私はお暇しましょうかね。", "これはClearした貴方へのご褒美です。", "Congratulations!! Game was Cleared!!", "Bye. Thanks for meeting me!", "Reload Game?"],
-            end: ["Game End...!", "笑わせてくれるね～, 弱き者よ。", "ReLoad Game"]
+            end: ["Game End...!", "笑わせてくれるね～, 弱き者よ。", "ReLoad Game?"]
         }
     }
 }
@@ -180,7 +181,7 @@ let Boss = {
         shot: {
             size: 0,
             image: undefined,
-            damage: 00,
+            damage: 0,
             bullet: []
         }
     },
@@ -288,13 +289,14 @@ function start() {
     Boss.speed = confi_Boss.speed
     Boss.interval = confi_Boss.interval
     Boss.hp = confi_Boss.hp
+    Boss.damage = confi_Boss.damage;
 
     Boss.enemy.size = confi_Boss.enemy.size
     Boss.enemy.image = new Image()
     Boss.enemy.image.src = confi_Boss.enemy.image
     Boss.enemy.interval = confi_Boss.enemy.interval
     Boss.enemy.range = confi_Boss.enemy.range
-    Boss.enemy.shot = confi_Boss.enemy.shot;;
+    Boss.enemy.shot = confi_Boss.enemy.shot;
 }
 
 function recall() {
@@ -382,23 +384,24 @@ function main() {
             zyako.zyako.push({
                 x: Random(0, canvas.width),
                 y: Funcrand("-x+" + canvas.height / 2, 0, canvas.height, 0, canvas.height),
-                shot_interval: Random(20, 40)
+                shot_interval: Random(40, 60)
             })
         }
         zyako.zyako.forEach(_E0 => {
             if (count % _E0.shot_interval == 0) {
                 zyako.shot.bullet.push({
                     x: _E0.x,
-                    y: _E0.y
+                    y: _E0.y,
+                    angle: Random((180 - zyako.shot.angle) / 2, (180 - zyako.shot.angle) / 2 + zyako.shot.angle)
                 })
             }
         })
         zyako.shot.bullet.forEach(_E0 => {
-            _E0.x += Math.cos(zyako.shot.angle) * zyako.shot.speed
-            _E0.y += Math.sin(zyako.shot.angle) * zyako.shot.speed
+            _E0.x += Math.cos(_E0.angle * (Math.PI / 180)) * zyako.shot.speed
+            _E0.y += Math.sin(_E0.angle * Math.PI / 180) * zyako.shot.speed
         })
         zyako.shot.bullet = CanvasOver(zyako.shot.bullet)
-        if (point.point >= 2000) {
+        if (point.point >= 1000) {
             PlusRate(); DeleteZyako()
         }
     }
@@ -458,7 +461,7 @@ function main() {
 function OutofMain() {
     if (chara.hp <= 0) {
         [Boss.x, Boss.y] = [canvas.width / 2, canvas.height / 6]
-        ctx.drawImage(Boss.image, Boss.x - Boss.size / 2, Boss.y - Boss.size / 2, Boss.size, Boss.size)
+        ctx.drawImage(Boss.image, Boss.x - Boss.size, Boss.y - Boss.size, Boss.size * 2, Boss.size * 2)
         run = false;
         if (Sayclick(13)[0] >= Boss.say.say.end.length) {
             location.reload()
@@ -469,7 +472,6 @@ function OutofMain() {
     if (Boss.hp <= 0) {
         run = false;
         [Boss.x, Boss.y] = [canvas.width / 2, canvas.height / 6]
-        draw()
         if (Sayclick(13)[0] >= Boss.say.say.clear.length) {
             location.reload()
         } else {
@@ -482,6 +484,8 @@ function OutofMain() {
         }
     }
 }
+const tmpAa = (event) => { if (event.keyCode == 72) crKeyMemo("udadd", 32) }
+window.addEventListener("keydown", tmpAa)
 
 function draw() {
     Derie("#screen_box")[0].style.width = canvas.width + "px";
@@ -686,9 +690,21 @@ function hit() {
             })
         })
 
+        if (chara.x + chara.size >= Boss.x - Boss.size * Boss.hit_size * 0.01 && chara.x - chara.size <= Boss.x + Boss.size * Boss.hit_size * 0.01 && chara.y - chara.size <= Boss.y + Boss.size && chara.y + chara.size >= Boss.y - Boss.size) {
+            Boss.hp -= chara.sub.shot.damage * .5;
+            point.point += point.succ * 2;
+            chara.hp -= Boss.damage;
+
+            chara.air = true;
+            chara.size = 0;
+            setTimeout(() => {
+                chara.air = false
+                chara.size = confi_chara.size;
+            }, 3000)
+        }
         chara.shot.bullet.forEach(_E0 => {
-            if (Math.abs(_E0.x + chara.shot.size >= Boss.x - Boss.size * Boss.hit_size * 0.01 && _E0.x - chara.shot.size <= _E0.x + Boss.size * Boss.hit_size * 0.01 && _E0.y - chara.shot.size <= Boss.y + Boss.size && _E0.y + chara.shot.size >= Boss.y + Boss.size)) {
-                Boss.hp -= chara.shot.damage * .1;
+            if (Math.abs(_E0.x + chara.shot.size >= Boss.x - Boss.size && _E0.x - chara.shot.size <= Boss.x + Boss.size && _E0.y - chara.shot.size <= Boss.y + Boss.size && _E0.y + chara.shot.size >= Boss.y - Boss.size)) {
+                Boss.hp -= chara.sub.shot.damage * Math.hypot(chara.x - Boss.x, chara.y - Boss.y) / canvas.height * .1;
                 point.point += point.succ * 2;
                 chara.hp += 1;
                 chara.shot.bullet = chara.shot.bullet.filter(_E1 => _E1 !== _E0)
@@ -696,8 +712,8 @@ function hit() {
         })
 
         chara.sub.shot.bullet[0].forEach(_E0 => {
-            if (Math.abs(_E0.x + chara.shot.size >= Boss.x - Boss.size * Boss.hit_size * 0.01 && _E0.x - chara.shot.size <= _E0.x + Boss.size * Boss.hit_size * 0.01 && _E0.y - chara.shot.size <= Boss.y + Boss.size && _E0.y + chara.shot.size >= Boss.y + Boss.size)) {
-                Boss.hp -= chara.sub.shot.damage * .1;
+            if (Math.abs(_E0.x + chara.shot.size >= Boss.x - Boss.size && _E0.x - chara.shot.size <= Boss.x + Boss.size && _E0.y - chara.shot.size <= Boss.y + Boss.size && _E0.y + chara.shot.size >= Boss.y - Boss.size)) {
+                Boss.hp -= chara.sub.shot.damage * Math.hypot(chara.x - Boss.x, chara.y - Boss.y) / canvas.height * .1;
                 point.point += point.succ * 1.5;
                 chara.hp += 1
                 chara.sub.shot.bullet[0] = chara.sub.shot.bullet[0].filter(_E1 => _E1 !== _E0)
@@ -705,8 +721,8 @@ function hit() {
         })
 
         chara.sub.shot.bullet[1].forEach(_E0 => {
-            if (Math.abs(_E0.x + chara.shot.size >= Boss.x - Boss.size * Boss.hit_size * 0.01 && _E0.x - chara.shot.size <= _E0.x + Boss.size * Boss.hit_size * 0.01 && _E0.y - chara.shot.size <= Boss.y + Boss.size && _E0.y + chara.shot.size >= Boss.y + Boss.size)) {
-                Boss.hp -= chara.sub.shot.damage * .1;
+            if (Math.abs(_E0.x + chara.shot.size >= Boss.x - Boss.size && _E0.x - chara.shot.size <= Boss.x + Boss.size && _E0.y - chara.shot.size <= Boss.y + Boss.size && _E0.y + chara.shot.size >= Boss.y + Boss.size)) {
+                Boss.hp -= chara.sub.shot.damage * Math.hypot(chara.x - Boss.x, chara.y - Boss.y) / canvas.height * .1;
                 point.point += point.succ * 1.5;
                 chara.hp += 1
                 chara.sub.shot.bullet[1] = chara.sub.shot.bullet[1].filter(_E1 => _E1 !== _E0)
